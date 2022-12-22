@@ -1,0 +1,11 @@
+MySql on xampp localhost:3306, user dumindu,password //set env
+
+//creating model
+php artisan make:model Listing
+
+//migration
+php artisan make:migration create_listings_table
+php artisan migrate
+
+php artisan make:factory ListingFactory  // use faker to build fake data 
+php artisan migrate:refresh --seed 
