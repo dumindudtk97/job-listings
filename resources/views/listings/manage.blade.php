@@ -68,7 +68,7 @@
                         class="px-4 py-8 border-t border-b border-gray-300 text-lg"
                     >
                         <form action="">
-                            <button class="text-red-600">
+                            <button class="text-red-700">
                                 <i
                                     class="fa-solid fa-trash-can"
                                 ></i>
