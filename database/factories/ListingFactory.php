@@ -14,13 +14,13 @@ class ListingFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence(2),
+            'title' => $this->faker->jobTitle(),
             'tags' => 'laravel,go,java,php,spring,docker',
             'company' => $this->faker->company(),
             'email' => $this->faker->companyEmail(),
             'website' => $this->faker->url(),
             'location' => $this->faker->city(),
-            'description' => $this->faker->paragraph(10),
+            'description' => $this->faker->realTextBetween(20,150),
         ];
     }
 }

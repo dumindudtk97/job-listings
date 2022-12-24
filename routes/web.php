@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Listing;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ListingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,27 +16,46 @@ use App\Models\Listing;
 |
 */
 
+// Routing with the listing controller
 //All listings
-Route::get('/',function(){
-    return view('listings', [
-            'heading' => 'Latest listings',
-            'listings' => Listing::all(),   //calling static method from Listing model
-        ]
-    );
-});
+Route::get('/', [ListingController::class, 'index']);
+
+// show create form
+Route::get('/listings/create',[ListingController::class, 'create'])->middleware('auth');
+
+// Store listing
+Route::post('/listings',[ListingController::class, 'store'])->middleware('auth');
+
+//show edit form
+Route::get('/listings/{listing}/edit',[ListingController::class, 'edit'])->middleware('auth');
+
+// update listing
+Route::put('/listings/{listing}',[ListingController::class, 'update'])->middleware('auth');
+
+// delete listing
+Route::delete('/listings/{listing}',[ListingController::class, 'destroy'])->middleware('auth');
+
+//show register form
+Route::get('/register',[UserController::class, 'create'])->middleware('guest');
+
+// Create new user
+Route::post('/users',[UserController::class, 'store']);
+
+// Log out user
+Route::post('/logout',[UserController::class, 'logout'])->middleware('auth');
+
+//show login form
+Route::get('/login',[UserController::class, 'login'])->name('login')->middleware('guest');
+
+// Log in user
+Route::post('/users/authenticate',[UserController::class, 'authenticate']);
+
+// manage listings
+Route::get('/listings/manage',[ListingController::class, 'manage'])->middleware('auth');
+
 
 //Single listing
-Route::get('/listings/{id}',function($id){
-    return view('listing', [
-            'listing' => Listing::find($id),   //calling static method from Listing model
-        ]
-    );
-})->where('id','[0-9]+');
-
-
-
-
-
+Route::get('/listings/{listing}',[ListingController::class, 'show']);
 
 
 
